@@ -1,0 +1,24 @@
+============================= test session starts =============================
+platform win32 -- Python 3.9.12, pytest-7.2.0, pluggy-1.0.0
+rootdir: C:\Users\advod\AAA\python\git\aaa-final-task
+collected 4 items
+
+issue-04_ohe_test.py .F..                                                [100%]
+
+================================== FAILURES ===================================
+________________________________ test_numbers _________________________________
+
+    def test_numbers():
+>       assert fit_transform([1, 2, 3, 4, 2, 3]) == [(1, [0, 0, 0, 1]),
+                                                     (2, [0, 0, 1, 0]),
+                                                     (3, [0, 1, 0, 0]),
+                                                     (4, [1, 0, 0, 0]),
+                                                     (2, [0, 0, 1, 0])]
+E       assert [(1, [0, 0, 0...[0, 1, 0, 0])] == [(1, [0, 0, 0...[0, 0, 1, 0])]
+E         Left contains one more item: (3, [0, 1, 0, 0])
+E         Use -v to get more diff
+
+issue-04_ohe_test.py:37: AssertionError
+=========================== short test summary info ===========================
+FAILED issue-04_ohe_test.py::test_numbers - assert [(1, [0, 0, 0...[0, 1, 0, ...
+========================= 1 failed, 3 passed in 0.34s =========================

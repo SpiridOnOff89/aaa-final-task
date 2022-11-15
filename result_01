@@ -1,0 +1,39 @@
+Trying:
+    encode('HELLO  WORLD') # doctest: +NORMALIZE_WHITESPACE
+Expecting:
+    '.... . .-.. .-.. ---   .-- --- .-. .-.. -..'
+ok
+Trying:
+    encode('SAVE OUR SOULS') # doctest: +ELLIPSIS
+Expecting:
+    '... ... ...'
+ok
+Trying:
+    encode('X')
+Expecting:
+    '-..-'
+ok
+Trying:
+    encode('S O S')
+Expecting:
+    '... --- ...'
+ok
+Trying:
+    encode('S0S')
+Expecting:
+    '... ----- ...'
+ok
+Trying:
+    encode('We are in danger!')
+Expecting:
+    Traceback (most recent call last):
+     ...
+    KeyError: 'e'
+ok
+1 items had no tests:
+    issue-01_encode_doctests
+1 items passed all tests:
+   6 tests in issue-01_encode_doctests.encode
+6 tests in 2 items.
+6 passed and 0 failed.
+Test passed.
