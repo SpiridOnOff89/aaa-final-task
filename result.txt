@@ -1,0 +1,132 @@
+python -m doctest -o NORMALIZE_WHITESPACE -v issue-01.py
+Trying:
+    encode('HELLO  WORLD') # doctest: +NORMALIZE_WHITESPACE
+Expecting:
+    '.... . .-.. .-.. ---   .-- --- .-. .-.. -..'
+ok
+Trying:
+    encode('SAVE OUR SOULS') # doctest: +ELLIPSIS
+Expecting:
+    '... ... ...'
+ok
+Trying:
+    encode('X')
+Expecting:
+    '-..-'
+ok
+Trying:
+    encode('S O S')
+Expecting:
+    '... --- ...'
+ok
+Trying:
+    encode('S0S')
+Expecting:
+    '... ----- ...'
+ok
+Trying:
+    encode('We are in danger!')
+Expecting:
+    Traceback (most recent call last):
+     ...
+    KeyError: 'e'
+ok
+2 items had no tests:
+    issue-01
+    issue-01.decode
+1 items passed all tests:
+   6 tests in issue-01.encode
+6 tests in 3 items.
+6 passed and 0 failed.
+Test passed.
+
+
+
+python -m pytest
+================================================= test session starts =================================================
+platform win32 -- Python 3.9.12, pytest-7.2.0, pluggy-1.0.0
+rootdir: C:\Users\advod\AAA\python\git\aaa-final-task
+collected 3 items
+
+decode_test.py F..                                                                                               [100%]
+
+====================================================== FAILURES =======================================================
+____________________ test_decode[.-- .... . .-. .   .- .-. .   -.-- --- ..- ..--..-WHERE ARE YOU?] ____________________
+
+morse = '.-- .... . .-. .   .- .-. .   -.-- --- ..- ..--..', letters = 'WHERE ARE YOU?'
+
+    @pytest.mark.parametrize('morse, letters', [
+       ('.-- .... . .-. .   .- .-. .   -.-- --- ..- ..--..', 'WHERE ARE YOU?'),
+       ('... --- ...', 'SOS'),
+       ('.-- .... . .-. . ..--..', 'WHERE?')
+    ])
+    def test_decode(morse, letters):
+>       assert decode(morse) == letters
+E       AssertionError: assert 'WHEREAREYOU?' == 'WHERE ARE YOU?'
+E         - WHERE ARE YOU?
+E         ?      -   -
+E         + WHEREAREYOU?
+
+decode_test.py:22: AssertionError
+=============================================== short test summary info ===============================================
+FAILED decode_test.py::test_decode[.-- .... . .-. .   .- .-. .   -.-- --- ..- ..--..-WHERE ARE YOU?] - AssertionError: assert 'WHEREAREYOU?' == 'WHERE ARE YOU?'
+============================================= 1 failed, 2 passed in 0.75s =============================================
+
+
+python test_ohe_unittest.py
+...F
+======================================================================
+FAIL: test_numbers (__main__.TestOHE)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\advod\AAA\python\git\aaa-final-task\test_ohe_unittest.py", line 48, in test_numbers
+    self.assertEqual(actual, expected)
+AssertionError: Lists differ: [(1, [46 chars], 0]), (4, [1, 0, 0, 0]), (2, [0, 0, 1, 0]), (3, [0, 1, 0, 0])] != [(1, [46 chars], 0]), (4, [1, 0, 0, 0]), (2, [0, 0, 1, 0])]
+
+First list contains 1 additional elements.
+First extra element 5:
+(3, [0, 1, 0, 0])
+
+  [(1, [0, 0, 0, 1]),
+   (2, [0, 0, 1, 0]),
+   (3, [0, 1, 0, 0]),
+   (4, [1, 0, 0, 0]),
+-  (2, [0, 0, 1, 0]),
+?                   ^
+
++  (2, [0, 0, 1, 0])]
+?                   ^
+
+-  (3, [0, 1, 0, 0])]
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.005s
+
+FAILED (failures=1)
+
+python -m pytest ohe_test.py
+================================================= test session starts =================================================
+platform win32 -- Python 3.9.12, pytest-7.2.0, pluggy-1.0.0
+rootdir: C:\Users\advod\AAA\python\git\aaa-final-task
+collected 4 items
+
+ohe_test.py .F..                                                                                                 [100%]
+
+====================================================== FAILURES =======================================================
+____________________________________________________ test_numbers _____________________________________________________
+
+    def test_numbers():
+>       assert fit_transform([1, 2, 3, 4, 2, 3]) == [(1, [0, 0, 0, 1]),
+                                                     (2, [0, 0, 1, 0]),
+                                                     (3, [0, 1, 0, 0]),
+                                                     (4, [1, 0, 0, 0]),
+                                                     (2, [0, 0, 1, 0])]
+E       assert [(1, [0, 0, 0...[0, 1, 0, 0])] == [(1, [0, 0, 0...[0, 0, 1, 0])]
+E         Left contains one more item: (3, [0, 1, 0, 0])
+E         Use -v to get more diff
+
+ohe_test.py:36: AssertionError
+=============================================== short test summary info ===============================================
+FAILED ohe_test.py::test_numbers - assert [(1, [0, 0, 0...[0, 1, 0, 0])] == [(1, [0, 0, 0...[0, 0, 1, 0])]
+============================================= 1 failed, 3 passed in 0.66s =============================================
+
