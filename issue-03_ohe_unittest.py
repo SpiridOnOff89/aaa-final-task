@@ -2,6 +2,7 @@ import unittest
 import random
 from one_hot_encoder import fit_transform
 
+
 class TestOHE(unittest.TestCase):
     def test_countries(self):
         actual = fit_transform(['Russia', 'USA', 'France', 'USA', 'Italy'])

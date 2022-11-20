@@ -1,6 +1,6 @@
-from typing import List, Tuple
 import pytest
 from one_hot_encoder import fit_transform
+
 
 def test_countries():
     actual = fit_transform(['Russia', 'USA', 'France', 'USA', 'Italy'])
