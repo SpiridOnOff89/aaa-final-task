@@ -18,7 +18,7 @@ E       assert [(1, [0, 0, 0...[0, 1, 0, 0])] == [(1, [0, 0, 0...[0, 0, 1, 0])]
 E         Left contains one more item: (3, [0, 1, 0, 0])
 E         Use -v to get more diff
 
-issue-04_ohe_test.py:37: AssertionError
+issue-04_ohe_test.py:14: AssertionError
 =========================== short test summary info ===========================
 FAILED issue-04_ohe_test.py::test_numbers - assert [(1, [0, 0, 0...[0, 1, 0, ...
-========================= 1 failed, 3 passed in 0.34s =========================
+========================= 1 failed, 3 passed in 0.36s =========================

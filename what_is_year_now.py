@@ -1,9 +1,6 @@
 import urllib.request
 import json
 
-import unittest
-from unittest.mock import patch
-
 
 API_URL = 'http://worldclockapi.com/api/json/utc/now'
 
@@ -38,12 +35,9 @@ def what_is_year_now() -> int:
     return int(year_str)
 
 
-with patch('__main__.urllib.request') as get_date:
-    get_date.return_value.urlopen = lambda x: ""
-    with patch('__main__.json.load') as load_date:
-        load_date.return_value = {'currentDateTime': '2019-03-01'}
-        assert what_is_year_now() == 2019
+if __name__ == '__main__':
+    year = what_is_year_now()
+    exp_year = 2019
 
-
-if __name__ == "__main__":
-    unittest.main()
+    print(year)
+    assert year == exp_year
