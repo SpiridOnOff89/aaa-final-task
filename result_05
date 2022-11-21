@@ -1,0 +1,42 @@
+============================= test session starts =============================
+platform win32 -- Python 3.9.12, pytest-7.2.0, pluggy-1.0.0
+rootdir: C:\Users\advod\AAA\python\git\aaa-final-task
+collected 3 items
+
+issue-05_year_unittest.py ..F                                            [100%]
+
+================================== FAILURES ===================================
+_______________________________ test_wrong_year _______________________________
+
+    def test_wrong_year():
+        exp_response = '{"currentDateTime": "aaa.12.02"}'
+        with patch('urllib.request.urlopen', return_value=StringIO(exp_response)):
+>           actual = what_is_year_now()
+
+issue-05_year_unittest.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def what_is_year_now() -> int:
+        """
+        Получает текущее время из API-worldclock и извлекает из поля 'currentDateTime' год
+    
+        Предположим, что currentDateTime может быть в двух форматах:
+          * YYYY-MM-DD - 2019-03-01
+          * DD.MM.YYYY - 01.03.2019
+        """
+        with urllib.request.urlopen(API_URL) as resp:
+            resp_json = json.load(resp)
+    
+        datetime_str = resp_json['currentDateTime']
+        if datetime_str[YMD_SEP_INDEX] == YMD_SEP:
+            year_str = datetime_str[YMD_YEAR_SLICE]
+        elif datetime_str[DMY_SEP_INDEX] == DMY_SEP:
+            year_str = datetime_str[DMY_YEAR_SLICE]
+        else:
+>           raise ValueError('Invalid format')
+E           ValueError: Invalid format
+
+issue-05_year_unittest.py:37: ValueError
+=========================== short test summary info ===========================
+FAILED issue-05_year_unittest.py::test_wrong_year - ValueError: Invalid format
+========================= 1 failed, 2 passed in 0.72s =========================
