@@ -16,7 +16,7 @@ class Pizza:
         self.ingredients = ingredients
 
     def dict(self) -> str:
-        return f'{self.name}: {", ".join(self.ingredients)}'
+        return '{:<11}: {:<50}'.format(self.name, ", ".join(self.ingredients))
 
     def __eq__(self, other) -> bool:
         return (self.name == other.name) \
@@ -80,7 +80,18 @@ def cli():
 @click.argument('pizza', nargs=1)
 def order(pizza: str, delivery: bool) -> None:
     """Готовит и доставляет пиццу"""
-    pizza = list(filter(lambda x: x.name.lower() == pizza, all_pizza))[0]
+    pizza_names = list(map(lambda x: x.name, all_pizza))
+    while True:
+        if pizza.lower().capitalize() not in pizza_names:
+            print('Такой пиццы в меню нет. Введите название из списка:')
+            print(", ".join(pizza_names))
+            pizza = input()
+        else:
+            break
+
+    # ищу элемент класса Pizza по введенному названию пиццы
+    pizza = list(filter(lambda x: x.name.lower() == pizza.lower(), all_pizza))[0]
+
     _bake(pizza)
     if delivery:
         _delivery(pizza)
