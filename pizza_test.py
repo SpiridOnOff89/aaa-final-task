@@ -1,5 +1,6 @@
 import pytest
-from pizza import Pizza, _delivery, _bake, pepperoni
+from pizza import Pizza, pepperoni
+from pizza_operations import _delivery, _bake
 from io import StringIO
 import sys
 
@@ -49,15 +50,15 @@ def test_pizza_eq():
 
 def test_pizza_not_eq():
     first_pizza = Pizza(name='chilli_pizza',
-                        ingredients=['chilli pipper',
+                        ingredients=['chilli pepper',
                                      'mozzarella',
                                      'tomatoes'])
     second_pizza = Pizza(name='chilli_pepper_pizza',
-                         ingredients=['chilli pipper',
+                         ingredients=['chilli pepper',
                                       'mozzarella',
                                       'tomatoes'],
                          size='XL')
-    assert first_pizza == second_pizza
+    assert first_pizza != second_pizza
 
 
 def test_pizza_wrong_size():
