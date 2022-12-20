@@ -1,14 +1,8 @@
-import click
-import random
-from typing import Callable, Type
-from functools import wraps
-
-
 class Pizza:
 
     sizes = ['L', 'XL']
 
-    def __init__(self, name, ingredients, size='L'):
+    def __init__(self, name: str, ingredients: str, size='L'):
         if size not in self.sizes:
             raise ValueError(f'Возможные размеры: {"/".join(self.sizes)}')
         self.name = name
@@ -18,7 +12,7 @@ class Pizza:
     def dict(self) -> str:
         return '{:<11}: {:<50}'.format(self.name, ", ".join(self.ingredients))
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other: 'Pizza') -> bool:
         return (self.name == other.name) \
                and (self.ingredients == other.ingredients)
 
@@ -45,64 +39,5 @@ hawaiian = Pizza(name='Hawaiian',
                      'pineapples'
                  ]
                  )
+
 all_pizza = [margharita, pepperoni, hawaiian]
-
-
-def log(text: str) -> Callable:
-    """Принимает функцию выводит время ее выполнения"""
-    def outer_wrapper(func):
-        @wraps(func)
-        def inner_wrapper(pizza):
-            print(f'{text.format(random.randint(1, 20))} пиццу {pizza.name}.')
-        return inner_wrapper
-    return outer_wrapper
-
-
-@log('Приготовили за {} минут')
-def _bake(pizza: Type[Pizza]) -> None:
-    """Пицца приготовлена!"""
-    print(f'Готовится пицца {pizza.name}!')
-
-
-@log('Доставили за {} минут')
-def _delivery(pizza: Type[Pizza]) -> None:
-    """Доставляет пиццу"""
-    print(f'Пицца {pizza.name} доставляется!')
-
-
-@click.group()
-def cli():
-    pass
-
-
-@cli.command
-@click.option('--delivery', default=False, is_flag=True)
-@click.argument('pizza', nargs=1)
-def order(pizza: str, delivery: bool) -> None:
-    """Готовит и доставляет пиццу"""
-    pizza_names = list(map(lambda x: x.name, all_pizza))
-    while True:
-        if pizza.lower().capitalize() not in pizza_names:
-            print('Такой пиццы в меню нет. Введите название из списка:')
-            print(", ".join(pizza_names))
-            pizza = input()
-        else:
-            break
-
-    # ищу элемент класса Pizza по введенному названию пиццы
-    pizza = list(filter(lambda x: x.name.lower() == pizza.lower(), all_pizza))[0]
-
-    _bake(pizza)
-    if delivery:
-        _delivery(pizza)
-
-
-@cli.command()
-def menu() -> None:
-    """Выводит меню"""
-    for pizza in all_pizza:
-        print(pizza.dict())
-
-
-if __name__ == '__main__':
-    cli()

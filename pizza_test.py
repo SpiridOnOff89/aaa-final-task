@@ -44,9 +44,7 @@ def test_pizza_eq():
                                       'mozzarella',
                                       'tomatoes'],
                          size='XL')
-    actual = first_pizza == second_pizza
-    expected = True
-    assert actual == expected
+    assert first_pizza == second_pizza
 
 
 def test_pizza_not_eq():
@@ -59,9 +57,7 @@ def test_pizza_not_eq():
                                       'mozzarella',
                                       'tomatoes'],
                          size='XL')
-    actual = first_pizza == second_pizza
-    expected = False
-    assert actual == expected
+    assert first_pizza == second_pizza
 
 
 def test_pizza_wrong_size():
